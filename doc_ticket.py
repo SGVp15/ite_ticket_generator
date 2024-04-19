@@ -3,7 +3,7 @@ import random
 import time
 from string import ascii_uppercase, digits
 
-import docx2pdf as docx2pdf
+import docx2pdf
 from docx import Document
 from docx.shared import Inches
 
