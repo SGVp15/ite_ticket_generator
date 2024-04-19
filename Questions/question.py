@@ -2,7 +2,6 @@ import random
 from string import ascii_lowercase, ascii_uppercase, digits
 
 from config import mix_aswer
-from utils.utils import mix_value
 
 
 class Question:
@@ -76,3 +75,24 @@ def create_names_tickets(exam: str, num) -> [str]:
         ticket_name += ''.join(rand)
         tickets_name.append(ticket_name)
     return tickets_name
+
+
+def mix_value(q: Question) -> Question:
+    keys = ['A', 'B', 'C', 'D']
+    __temp_dict = {}
+    q.right_answer = q.ans_a
+    for i in range(len(q.mix)):
+        if q.mix[i] == '1':
+            __temp_dict[keys[i]] = q.ans_a
+        elif q.mix[i] == '2':
+            __temp_dict[keys[i]] = q.ans_b
+        elif q.mix[i] == '3':
+            __temp_dict[keys[i]] = q.ans_c
+        elif q.mix[i] == '4':
+            __temp_dict[keys[i]] = q.ans_d
+
+    q.answer_doc_a = __temp_dict[keys[0]]
+    q.answer_doc_b = __temp_dict[keys[1]]
+    q.answer_doc_c = __temp_dict[keys[2]]
+    q.answer_doc_d = __temp_dict[keys[3]]
+    return q

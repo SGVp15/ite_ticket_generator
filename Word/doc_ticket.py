@@ -6,10 +6,11 @@ import docx2pdf
 from docx import Document
 from docx.shared import Inches
 
-from qrcode import QR
-from Questions import Question
+from Questions.question import Question
 from config import docx_template, full_name_course
-from replace import replace_docx_text
+from qr_code.qr_creator import create_qrcode, get_qrcode_text_from_ticket
+from Word.replace import replace_docx_text
+from ticket_.ticket import Ticket
 
 
 def get_random_index_list_quest(list_quest, max_group):
@@ -43,14 +44,14 @@ def convert_docx_to_pdf(file):
     time.sleep(0.1)
 
 
-def create_docx(questions: [Question], name):
-    document = Document(f'../../{docx_template}')
+def create_docx(ticket: Ticket):
+    document = Document(docx_template)
     # replace_docx_text(document, old_text='Exam', new_text=ticket.exam)
-    file_qrcode = f'{name}.png'
+    file_qrcode = f'{ticket.name}.png'
     file_qrcode_exam_num = f'{name}_exam_num.png'
 
-    QR.QRcode.create_qrcode(text=name, filename=file_qrcode_exam_num)
-    QR.QRcode.create_qrcode(text=QR.get_qrcode_text_from_ticket(questions), filename=file_qrcode)
+    create_qrcode(text=name, filename=file_qrcode_exam_num)
+    create_qrcode(text=get_qrcode_text_from_ticket(questions), filename=file_qrcode)
 
     tables = document.tables
     p = tables[3].rows[0].cells[1].add_paragraph()

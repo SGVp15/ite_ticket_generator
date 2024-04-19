@@ -2,7 +2,7 @@ import os
 
 import openpyxl
 
-from Questions.Question import Question
+from Questions.question import Question
 from Word.doc_ticket import get_random_index_list_quest
 
 

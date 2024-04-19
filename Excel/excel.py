@@ -3,7 +3,7 @@ import random
 
 import openpyxl
 
-from Questions.Question import Question
+from Questions.question import Question
 from config import file_xlsx, map_excel, path_questions
 
 

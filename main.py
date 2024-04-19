@@ -4,21 +4,21 @@ import re
 from Excel.excel import get_all_questions_from_excel_file, all_in_one_excel
 from config import dir_out
 from Word.doc_ticket import create_docx, convert_docx_to_pdf
-from Questions.Question import create_new_ticket, create_names_tickets
+from Questions.question import create_new_ticket, create_names_tickets, Question
 from utils.utils import create_folders
 
 
-def create_txt(questions, name):
+def create_txt(questions: [Question], name: str):
     with open(file=name + '.txt', mode='w', encoding='utf-8') as f:
         for q in questions:
-            f.write(f"{q['id_question']}\t{q['right_answer']}\t{q['mix']}\t{q['category']}\n".capitalize())
+            f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, q.category])}\n".capitalize())
 
     num = re.findall(r"\d+", name)
     # print(num[0])
     with open(file=name + '_to_excel.txt', mode='w', encoding='utf-8') as f:
         f.write(f'{num[0]}\t\n')
         for q in questions:
-            f.write(f"{q['right_answer']}\t{q['category']}\n".capitalize())
+            f.write(f"{'\t'.join([q.right_answer, q.category])}\n".capitalize())
 
 
 if __name__ == '__main__':
@@ -32,13 +32,15 @@ if __name__ == '__main__':
 
         create_folders(exam)
         os.chdir(f'./{dir_out}/{exam}')
-        tickets_names = create_names_tickets(exam, num=5)
+        tickets_names = create_names_tickets(exam, num=1)
 
         # set_to_json(obj=ticket, file_name=f'{name}')
         for ticket_name in tickets_names:
-            ticket = create_new_ticket(all_questions, 5)
-            create_txt(ticket=ticket, name=f'{ticket_name}')
+            ticket = create_new_ticket(all_questions, min(30, len(all_questions)))
+            ticket.exam = exam
+            create_txt(questions=ticket, name=f'{ticket_name}')
             create_docx(questions=ticket, name=f'{ticket_name}')
+
 
     print('\n[  convert_docx_to_pdf  ]')
     for exam in exams:
@@ -50,7 +52,7 @@ if __name__ == '__main__':
             convert_docx_to_pdf(docx)
             print(docx)
         all_in_one_excel()
-        os.chdir(f'../../')
+
 
     print('\n[  all_in_one_excel  ]')
     for exam in exams:

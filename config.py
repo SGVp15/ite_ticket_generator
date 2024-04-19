@@ -6,7 +6,7 @@ course_number = {'ITILFC': '01',
                  'CobitC': '02',
                  'BAFC': '03',
                  'BASRMC': '04',
-                 'SCMC':'05'}
+                 'SCMC': '05'}
 
 full_name_course = {'ITILFC': 'ITIL 4 Основы сервис-менеджмента',
                     'CobitC': 'Основы Cobit 2019',
@@ -15,7 +15,7 @@ full_name_course = {'ITILFC': 'ITIL 4 Основы сервис-менеджме
                     'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
                     }
 
-path_questions = os.path.join(os.getcwd(), 'Questions')
+path_questions = os.path.join(os.getcwd(), 'data', 'input')
 
 file_xlsx = {'ITIL4FC': os.path.join(path_questions, 'ITIL4FC.xlsx'),
              'CobitC': os.path.join(path_questions, 'CobitС.xlsx'),
@@ -27,7 +27,7 @@ file_xlsx = {'ITIL4FC': os.path.join(path_questions, 'ITIL4FC.xlsx'),
              'CPIC': os.path.join(path_questions, 'CPIC.xlsx'),
              }
 
-docx_template = 'Шаблон экзамена.docx'
+docx_template = './Шаблон экзамена.docx'
 
 map_excel = {
     'Уровень по Блуму': 'C',
@@ -68,4 +68,4 @@ mix_aswer = ['1234',
              '4321']
 
 # Папка для выгрузки экзаменов
-dir_out = 'data/out'
+dir_out = './data/out'

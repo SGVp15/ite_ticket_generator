@@ -3,12 +3,9 @@ import qrcode
 from config import course_number
 
 
-class QRcode:
-
-    @staticmethod
-    def create_qrcode(text: str, filename: str):
-        img = qrcode.make(text)
-        img.save(filename)
+def create_qrcode(text: str, filename: str):
+    img = qrcode.make(text)
+    img.save(filename)
 
 
 def get_qrcode_text_from_ticket(questions: dict) -> str:
