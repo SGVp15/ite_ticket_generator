@@ -1,10 +1,9 @@
-import json
 import os
 import random
 
 import openpyxl
 
-from Question import Question
+from Questions.Question import Question
 from config import file_xlsx, map_excel, path_questions
 
 
@@ -88,3 +87,20 @@ class excel():
     def read_excel(excel, page_name, column, row):
         sheet_ranges = excel[page_name]
         return str(sheet_ranges[f'{column}{row}'].value)
+
+
+def all_in_one_excel():
+    excel = [x for x in os.listdir(f'./') if x.endswith('to_excel.txt')]
+    # print(excel)
+
+    out = ['' for _ in range(100)]
+    for file in excel:
+        with open(file, mode='r', encoding='utf-8') as f:
+            s = f.read().split('\n')
+            for i in range(len(s)):
+                out[i] = out[i] + s[i] + '\t'
+    with open(f'./all_excel.txt', mode='w', encoding='utf-8') as f:
+        f.write('')
+    with open(f'./all_excel.txt', mode='w', encoding='utf-8') as f:
+        s = '\n'.join(out)
+        f.write(s.strip())

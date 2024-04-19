@@ -1,7 +1,7 @@
 import json
 import os
 
-from Question import Question
+from Questions.Question import Question
 from config import dir_out
 
 

@@ -7,7 +7,7 @@ from docx import Document
 from docx.shared import Inches
 
 from qrcode import QR
-import Question
+from Questions import Question
 from config import docx_template, full_name_course
 from replace import replace_docx_text
 

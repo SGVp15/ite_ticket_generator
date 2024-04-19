@@ -1,4 +1,5 @@
-/out/
-/Questions/
+/data/out/
+/data/Questions/
 /.venv/
 .
+/data/
