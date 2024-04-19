@@ -3,7 +3,7 @@ import os
 import openpyxl
 
 from Question import Question
-from doc_ticket import get_random_index_list_quest
+from Word.doc_ticket import get_random_index_list_quest
 
 
 def create_excel_file_for_ispring(questions: [Question]):

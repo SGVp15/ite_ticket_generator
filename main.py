@@ -1,4 +1,3 @@
-import json
 import os
 import random
 import re
@@ -6,15 +5,15 @@ from string import ascii_uppercase, digits, ascii_lowercase
 
 from Excel.excel import get_all_questions_from_excel_file
 from config import mix_aswer, dir_out
-from doc_ticket import create_docx, convert_docx_to_pdf
+from Word.doc_ticket import create_docx, convert_docx_to_pdf
 from Question import Question
 from utils.utils import create_folders, mix_value
 
 
-def create_new_ticket(questions: [Question]) -> [Question]:
+def create_new_ticket(questions: [Question], max_num_question: int) -> [Question]:
     ticket = []
     box_question = []
-    while len(ticket) < 5 and len(questions) > 0:
+    while len(ticket) < max_num_question and len(questions) > 0:
         max_len = max(0, len(questions) - 1)
         n = random.randint(0, max_len)
         question = questions[n]
@@ -50,17 +49,6 @@ def create_txt(ticket, name):
             f.write(f"{q['right_answer']}\t{q['category']}\n".capitalize())
 
 
-def set_to_json(obj, file_name):
-    with open(f'{file_name}.json', mode='w', encoding='utf-8') as f:
-        f.write(json.dumps(obj))
-
-
-def get_from_json(path: str) -> dict:
-    with open(path, 'r', encoding='utf-8') as f:
-        obj = json.loads(f.read())
-    return obj
-
-
 def all_in_one_excel():
     excel = [x for x in os.listdir(f'./') if x.endswith('to_excel.txt')]
     # print(excel)
@@ -78,7 +66,8 @@ def all_in_one_excel():
         f.write(s.strip())
 
 
-def create_new_tickets(exam: str, num):
+def create_names_tickets(exam: str, num) -> [str]:
+    tickets_name = []
     for i in range(num):
         ticket_name = f'{exam}'
         ticket_name += f'{i:03d}'
@@ -86,6 +75,8 @@ def create_new_tickets(exam: str, num):
         ticket_name += ''.join(rand)
         rand = random.choices(digits, k=2)
         ticket_name += ''.join(rand)
+        tickets_name.append(ticket_name)
+    return tickets_name
 
 
 if __name__ == '__main__':
@@ -95,15 +86,17 @@ if __name__ == '__main__':
     for exam in exams:
         print(f'\n{exam}[  create_new_tickets  ]')
         # create_excel_file_for_ispring(get_all_questions_from_excel_file(exam))
-        questions = get_all_questions_from_excel_file(exam)
+        all_questions = get_all_questions_from_excel_file(exam)
 
         create_folders(exam)
         os.chdir(f'./{dir_out}/{exam}')
-        create_new_tickets(exam, num=5)
-        ticket = create_new_ticket(ticket_name)
+        tickets_names = create_names_tickets(exam, num=5)
+
         # set_to_json(obj=ticket, file_name=f'{name}')
         # create_txt(ticket=ticket, name=f'{name}')
-        create_docx(questions=questions, name=f'{ticket_name}')
+        for ticket_name in tickets_names:
+            ticket = create_new_ticket(all_questions, 5)
+            create_docx(questions=ticket, name=f'{ticket_name}')
 
     print('\n[  convert_docx_to_pdf  ]')
     for exam in exams:

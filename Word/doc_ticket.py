@@ -6,8 +6,8 @@ import docx2pdf
 from docx import Document
 from docx.shared import Inches
 
+from qrcode import QR
 import Question
-from QR import QRcode, get_qrcode_text_from_ticket
 from config import docx_template, full_name_course
 from replace import replace_docx_text
 
@@ -46,11 +46,11 @@ def convert_docx_to_pdf(file):
 def create_docx(questions: [Question], name):
     document = Document(f'../../{docx_template}')
     # replace_docx_text(document, old_text='Exam', new_text=ticket.exam)
-
     file_qrcode = f'{name}.png'
-    QRcode.create_qrcode(text=get_qrcode_text_from_ticket(questions), filename=file_qrcode)
     file_qrcode_exam_num = f'{name}_exam_num.png'
-    QRcode.create_qrcode(text=name, filename=file_qrcode_exam_num)
+
+    QR.QRcode.create_qrcode(text=name, filename=file_qrcode_exam_num)
+    QR.QRcode.create_qrcode(text=QR.get_qrcode_text_from_ticket(questions), filename=file_qrcode)
 
     tables = document.tables
     p = tables[3].rows[0].cells[1].add_paragraph()

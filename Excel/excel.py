@@ -82,3 +82,9 @@ def get_num_question_category_version(s) -> (int, int, int):
         return num_question, category, version
     except (IndexError, ValueError):
         return 0, 0, 0
+
+
+class excel():
+    def read_excel(excel, page_name, column, row):
+        sheet_ranges = excel[page_name]
+        return str(sheet_ranges[f'{column}{row}'].value)

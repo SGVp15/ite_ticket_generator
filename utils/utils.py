@@ -1,3 +1,4 @@
+import json
 import os
 
 from Question import Question
@@ -33,3 +34,14 @@ def mix_value(q: Question) -> Question:
     q.answer_doc_c = __temp_dict[keys[2]]
     q.answer_doc_d = __temp_dict[keys[3]]
     return q
+
+
+def get_from_json(path: str) -> dict:
+    with open(path, 'r', encoding='utf-8') as f:
+        obj = json.loads(f.read())
+    return obj
+
+
+def set_to_json(obj, file_name):
+    with open(f'{file_name}.json', mode='w', encoding='utf-8') as f:
+        f.write(json.dumps(obj))
