@@ -47,11 +47,11 @@ def convert_docx_to_pdf(file):
 def create_docx(ticket: Ticket):
     document = Document(docx_template)
     # replace_docx_text(document, old_text='Exam', new_text=ticket.exam)
-    file_qrcode = f'{ticket.name}.png'
-    file_qrcode_exam_num = f'{name}_exam_num.png'
+    file_qrcode = f'{ticket.ticket_name}.png'
+    file_qrcode_exam_num = f'{ticket.ticket_name}_exam_num.png'
 
-    create_qrcode(text=name, filename=file_qrcode_exam_num)
-    create_qrcode(text=get_qrcode_text_from_ticket(ticket, filename=file_qrcode))
+    create_qrcode(text=ticket.ticket_name, filename=file_qrcode_exam_num)
+    create_qrcode(text=get_qrcode_text_from_ticket(ticket), filename=file_qrcode)
 
     tables = document.tables
     p = tables[3].rows[0].cells[1].add_paragraph()

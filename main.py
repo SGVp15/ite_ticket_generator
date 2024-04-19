@@ -2,23 +2,23 @@ import os
 import re
 
 from Excel.excel import get_all_questions_from_excel_file, all_in_one_excel
-from config import dir_out
+from Questions.question import create_new_ticket, create_names_tickets
 from Word.doc_ticket import create_docx, convert_docx_to_pdf
-from Questions.question import create_new_ticket, create_names_tickets, Question
+from config import dir_out
 from ticket_.ticket import Ticket
 from utils.utils import create_folders
 
 
-def create_txt(questions: [Question], name: str):
-    with open(file=name + '.txt', mode='w', encoding='utf-8') as f:
-        for q in questions:
+def create_txt(ticket: Ticket, name: str):
+    with open(file=f'{dir_out}/{ticket.exam_name}/{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
+        for q in ticket.questions:
             f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, q.category])}\n".capitalize())
 
-    num = re.findall(r"\d+", name)
+    num = re.findall(r"\d+", ticket.ticket_name)
     # print(num[0])
-    with open(file=name + '_to_excel.txt', mode='w', encoding='utf-8') as f:
+    with open(file=f'{dir_out}/{ticket.exam_name}/{ticket.ticket_name}_to_excel.txt', mode='w', encoding='utf-8') as f:
         f.write(f'{num[0]}\t\n')
-        for q in questions:
+        for q in ticket.questions:
             f.write(f"{'\t'.join([q.right_answer, q.category])}\n".capitalize())
 
 
@@ -41,8 +41,8 @@ if __name__ == '__main__':
                 exam_name=exam,
                 ticket_name=ticket_name
             )
-            create_txt(questions=ticket, name=f'{ticket_name}')
-            create_docx(ticket=ticket, name=f'{ticket_name}')
+            create_txt(ticket=ticket)
+            create_docx(ticket=ticket)
 
             print('\n[  convert_docx_to_pdf  ]')
             for exam in exams:
