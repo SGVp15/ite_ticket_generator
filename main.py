@@ -9,7 +9,7 @@ from ticket_.ticket import Ticket
 from utils.utils import create_folders
 
 
-def create_txt(ticket: Ticket, name: str):
+def create_txt(ticket: Ticket):
     with open(file=f'{dir_out}/{ticket.exam_name}/{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
         for q in ticket.questions:
             f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, q.category])}\n".capitalize())
@@ -56,6 +56,5 @@ if __name__ == '__main__':
             all_in_one_excel()
 
             print('\n[  all_in_one_excel  ]')
-            for exam in exams:
-                os.chdir(f'{dir_out}/{exam}')
-            all_in_one_excel()
+
+            # all_in_one_excel()

@@ -15,5 +15,8 @@ def get_qrcode_text_from_ticket(ticket: Ticket) -> str:
     # 'category': category,
     # 'version': version,
     for q in ticket.questions:
-        s += f"{q.num_question:03d}{q.category:02d}{q.version:02d}{q.mix_num:02d}"
+        s += f"{q.num_question:03d}"
+        # s += f"{q.category:02d}"
+        s += f"{q.version:02d}"
+        s += f"{q.mix_num:02d}"
     return s

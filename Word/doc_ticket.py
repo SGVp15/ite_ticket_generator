@@ -47,31 +47,37 @@ def convert_docx_to_pdf(file):
 def create_docx(ticket: Ticket):
     document = Document(docx_template)
     # replace_docx_text(document, old_text='Exam', new_text=ticket.exam)
-    file_qrcode = f'{ticket.ticket_name}.png'
-    file_qrcode_exam_num = f'{ticket.ticket_name}_exam_num.png'
 
-    create_qrcode(text=ticket.ticket_name, filename=file_qrcode_exam_num)
-    create_qrcode(text=get_qrcode_text_from_ticket(ticket), filename=file_qrcode)
+
+    create_qrcode(text=ticket.ticket_name, filename=ticket.file_qrcode_exam_num)
+    create_qrcode(text=get_qrcode_text_from_ticket(ticket), filename=ticket.file_qrcode)
 
     tables = document.tables
     p = tables[3].rows[0].cells[1].add_paragraph()
     r = p.add_run()
-    r.add_picture(file_qrcode, width=Inches(2))
+    r.add_picture(ticket.file_qrcode, width=Inches(2))
 
     p = tables[0].rows[0].cells[1].add_paragraph()
     r = p.add_run()
-    r.add_picture(file_qrcode_exam_num, width=Inches(1))
+    r.add_picture(ticket.file_qrcode_exam_num, width=Inches(1))
 
-    course = full_name_course[questions[1].exam]
+    course = full_name_course[ticket.questions[1].exam]
 
-    replace_docx_text(document, old_text='Code', new_text=name)
-    replace_docx_text(document, old_text='Exam', new_text=questions[1]['exam'])
+    replace_docx_text(document, old_text='Code', new_text=ticket.ticket_name)
+    replace_docx_text(document, old_text='Exam', new_text=ticket.exam_name)
     replace_docx_text(document, old_text='Course', new_text=course)
-    for i in range(30):
+    for i in range(ticket.number_of_questions):
         try:
-            replace_docx_text(document, old_text=f'Question_{i + 1}',
-                              new_text=f'{i + 1}.\t' + questions[i].text_question)
-            replace_docx_text(document, old_text=f'Answer_{i + 1}', new_text=questions[i].Answer)
+            replace_docx_text(
+                document,
+                old_text=f'Question_{i + 1}',
+                new_text=f'{i + 1}.\t' + ticket.questions[i].text_question
+            )
+            replace_docx_text(
+                document,
+                old_text=f'Answer_{i + 1}',
+                new_text=ticket.questions[i].Answer
+            )
         except IndexError:
             break
-    document.save(f'{name}.docx')
+    document.save(ticket.word_path_file)
