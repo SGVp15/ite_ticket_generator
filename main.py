@@ -2,99 +2,19 @@ import json
 import os
 import random
 import re
-import openpyxl
+from string import ascii_uppercase, digits, ascii_lowercase
 
-from config import map_excel, mix_aswer, dir_out, file_xlsx
-from ispring import create_excel_file_for_ispring
+from Excel.excel import get_all_questions_from_excel_file
+from config import mix_aswer, dir_out
+from doc_ticket import create_docx, convert_docx_to_pdf
 from Question import Question
-
-
-def create_folders(name):
-    os.makedirs(f'{dir_out}/{name}/json', exist_ok=True)
-    os.makedirs(f'{dir_out}/{name}/pdf', exist_ok=True)
-    os.makedirs(f'{dir_out}/{name}/docx', exist_ok=True)
-
-
-def read_excel(excel, page_name, column, row):
-    sheet_ranges = excel[page_name]
-    return str(sheet_ranges[f'{column}{row}'].value).strip()
-
-
-def get_all_questions_from_excel_file(exam: str) -> [Question]:
-    file = file_xlsx[exam]
-    wb = openpyxl.load_workbook(filename=f'{file}', data_only=True)
-    page_name = wb.sheetnames
-    page_name = str(page_name[0])
-    col_id_question = map_excel['Код вопроса']
-    col_box_question = map_excel['Блок вопросов']
-    column_enable_question = map_excel['Действующий 1-да, 0-нет']
-
-    column_a = 'a'
-    column_main = 'b'
-
-    all_questions = []
-    num_q = 0
-
-    i = 0
-    while i < 20000:
-        i += 1
-        a = read_excel(wb, page_name, column_a, i + 1).lower()
-        b = read_excel(wb, page_name, column_a, i + 2).lower()
-        c = read_excel(wb, page_name, column_a, i + 3).lower()
-        d = read_excel(wb, page_name, column_a, i + 4).lower()
-
-        if a in ('a', 'а') and b in ('b', 'в') and c in ('c', 'с') and d == 'd':
-            enable_question = read_excel(wb, page_name, column_enable_question, i)
-            if enable_question:
-                id_question = read_excel(wb, page_name, col_id_question, i)
-                box_question = read_excel(wb, page_name, col_box_question, i)
-                if box_question == 'None':
-                    box_question = random.randint(200, 300_000_000_000)
-                ans_a = read_excel(wb, page_name, column_main, i + 1)
-                ans_b = read_excel(wb, page_name, column_main, i + 2)
-                ans_c = read_excel(wb, page_name, column_main, i + 3)
-                ans_d = read_excel(wb, page_name, column_main, i + 4)
-                num_q += 1
-                text_question = read_excel(wb, page_name, column_main, i)
-                num_question, category, version = get_num_question_category_version(id_question)
-                category = read_excel(wb, page_name, "D", i)
-                all_questions.append(
-                    Question(
-                        id_question=id_question,
-                        text_question=text_question,
-                        ans_a=ans_a,
-                        ans_b=ans_b,
-                        ans_c=ans_c,
-                        ans_d=ans_d,
-                        box_question=box_question,
-                        num_question=num_question,
-                        category=category,
-                        version=version,
-                        exam=exam,
-                    ))
-            i += 3
-
-    # file_json = os.path.join(path_questions, f'{exam}.json')
-    # with open(file_json, 'w', encoding='utf-8') as f:
-    #     f.write(json.dumps(all_questions))
-    return all_questions
-
-
-def get_num_question_category_version(s) -> (int, int, int):
-    s = s.split('.')
-    try:
-        num_question = int(s[1])
-        category = int(s[2])
-        version = int(s[3])
-        return num_question, category, version
-    except (IndexError, ValueError):
-        return 0, 0, 0
+from utils.utils import create_folders, mix_value
 
 
 def create_new_ticket(questions: [Question]) -> [Question]:
     ticket = []
     box_question = []
-    while len(ticket) < 30 and len(questions) > 0:
+    while len(ticket) < 5 and len(questions) > 0:
         max_len = max(0, len(questions) - 1)
         n = random.randint(0, max_len)
         question = questions[n]
@@ -112,31 +32,9 @@ def create_new_ticket(questions: [Question]) -> [Question]:
                    f"B: {q.answer_doc_b}\n\n" \
                    f"C: {q.answer_doc_c}\n\n" \
                    f"D: {q.answer_doc_d}\n\n"
-    # l = random.choices(ascii_lowercase, k=5)
+    l = random.choices(ascii_lowercase, k=5)
     # create_json(ticket=ticket, name=name)
     return ticket
-
-
-#   перемешать варианты ответов
-def mix_value(q: Question) -> Question:
-    keys = ['A', 'B', 'C', 'D']
-    __temp_dict = {}
-    q.right_answer = q.ans_a
-    for i in range(len(q.mix)):
-        if q.mix[i] == '1':
-            __temp_dict[keys[i]] = q.ans_a
-        elif q.mix[i] == '2':
-            __temp_dict[keys[i]] = q.ans_b
-        elif q.mix[i] == '3':
-            __temp_dict[keys[i]] = q.ans_c
-        elif q.mix[i] == '4':
-            __temp_dict[keys[i]] = q.ans_d
-
-    q.answer_doc_a = __temp_dict[keys[0]]
-    q.answer_doc_b = __temp_dict[keys[1]]
-    q.answer_doc_c = __temp_dict[keys[2]]
-    q.answer_doc_d = __temp_dict[keys[3]]
-    return q
 
 
 def create_txt(ticket, name):
@@ -180,37 +78,46 @@ def all_in_one_excel():
         f.write(s.strip())
 
 
+def create_new_tickets(exam: str, num):
+    for i in range(num):
+        ticket_name = f'{exam}'
+        ticket_name += f'{i:03d}'
+        rand = random.choices(ascii_uppercase, k=3)
+        ticket_name += ''.join(rand)
+        rand = random.choices(digits, k=2)
+        ticket_name += ''.join(rand)
+
+
 if __name__ == '__main__':
     exams = []
-    exams.append('ITIL4FC')
-    exams.append('RCVC')
-    exams.append('CPIC')
-    exams.append('COBIT ICSC')
-    exams.append('CobitC')
-    exams.append('BAFC')
-    exams.append('BASRMC')
+    exams.append('SCMC')
 
     for exam in exams:
         print(f'\n{exam}[  create_new_tickets  ]')
-        create_excel_file_for_ispring(get_all_questions_from_excel_file(exam))
+        # create_excel_file_for_ispring(get_all_questions_from_excel_file(exam))
+        questions = get_all_questions_from_excel_file(exam)
 
-        # create_folders(exam)
-        # os.chdir(f'./{dir_out}/{exam}')
-        # create_new_tickets(exam)
-    #
-    # print('\n[  convert_docx_to_pdf  ]')
-    # for exam in exams:
-    #     os.chdir(f'{dir_out}/{exam}')
-    #     docx_files = set([x[:-5] for x in os.listdir('./') if x.endswith('.docx')])
-    #     pdf_files = set([x[:-4] for x in os.listdir('./') if x.endswith('.pdf')])
-    #     docx_files = docx_files - pdf_files
-    #     for docx in docx_files:
-    #         convert_docx_to_pdf(docx)
-    #         print(docx)
-    #     all_in_one_excel()
-    #     os.chdir(f'../../')
+        create_folders(exam)
+        os.chdir(f'./{dir_out}/{exam}')
+        create_new_tickets(exam, num=5)
+        ticket = create_new_ticket(ticket_name)
+        # set_to_json(obj=ticket, file_name=f'{name}')
+        # create_txt(ticket=ticket, name=f'{name}')
+        create_docx(questions=questions, name=f'{ticket_name}')
 
-    # print('\n[  all_in_one_excel  ]')
-    # for exam in exams:
-    #     os.chdir(f'{dir_out}/{exam}')
-    #     all_in_one_excel()
+    print('\n[  convert_docx_to_pdf  ]')
+    for exam in exams:
+        os.chdir(f'{dir_out}/{exam}')
+        docx_files = set([x[:-5] for x in os.listdir('./') if x.endswith('.docx')])
+        pdf_files = set([x[:-4] for x in os.listdir('./') if x.endswith('.pdf')])
+        docx_files = docx_files - pdf_files
+        for docx in docx_files:
+            convert_docx_to_pdf(docx)
+            print(docx)
+        all_in_one_excel()
+        os.chdir(f'../../')
+
+    print('\n[  all_in_one_excel  ]')
+    for exam in exams:
+        os.chdir(f'{dir_out}/{exam}')
+        all_in_one_excel()

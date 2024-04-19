@@ -1,7 +1,6 @@
 import os
 import random
 import time
-from string import ascii_uppercase, digits
 
 import docx2pdf
 from docx import Document
@@ -10,8 +9,6 @@ from docx.shared import Inches
 import Question
 from QR import QRcode, get_qrcode_text_from_ticket
 from config import docx_template, full_name_course
-
-from main import create_new_ticket, set_to_json, create_txt
 from replace import replace_docx_text
 
 
@@ -44,21 +41,6 @@ def convert_docx_to_pdf(file):
     docx2pdf.convert(f'./{file}.docx', pdf)
     print(file)
     time.sleep(0.1)
-
-
-def create_new_tickets(exam: str, num):
-    for i in num:
-        name = f'{exam}'
-        name += f'{i:03d}'
-        rand = random.choices(ascii_uppercase, k=3)
-        name += ''.join(rand)
-        rand = random.choices(digits, k=2)
-        name += ''.join(rand)
-
-        questions = create_new_ticket(name)
-        # set_to_json(obj=ticket, file_name=f'{name}')
-        # create_txt(ticket=ticket, name=f'{name}')
-        create_docx(questions=questions, name=f'{name}')
 
 
 def create_docx(questions: [Question], name):

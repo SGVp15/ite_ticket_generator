@@ -5,11 +5,13 @@ LOG_FILE = './log.txt'
 course_number = {'ITILFC': '01',
                  'CobitC': '02',
                  'BAFC': '03',
-                 'BASRMC': '04', }
+                 'BASRMC': '04',
+                 'SCMC':'05'}
 
 full_name_course = {'ITILFC': 'ITIL 4 Основы сервис-менеджмента',
                     'CobitC': 'Основы Cobit 2019',
                     'BAFC': 'Основы бизнес-анализа',
+                    'SCMC': 'SCMC',
                     'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
                     }
 
@@ -21,6 +23,7 @@ file_xlsx = {'ITIL4FC': os.path.join(path_questions, 'ITIL4FC.xlsx'),
              'BASRMC': os.path.join(path_questions, 'BASRMC.xlsx'),
              'COBIT ICSC': os.path.join(path_questions, 'COBIT ICSC.xlsx'),
              'RCVC': os.path.join(path_questions, 'RCVC.xlsx'),
+             'SCMC': os.path.join(path_questions, 'SCMC.xlsx'),
              'CPIC': os.path.join(path_questions, 'CPIC.xlsx'),
              }
 
