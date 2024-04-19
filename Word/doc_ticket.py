@@ -51,7 +51,7 @@ def create_docx(ticket: Ticket):
     file_qrcode_exam_num = f'{name}_exam_num.png'
 
     create_qrcode(text=name, filename=file_qrcode_exam_num)
-    create_qrcode(text=get_qrcode_text_from_ticket(questions), filename=file_qrcode)
+    create_qrcode(text=get_qrcode_text_from_ticket(ticket, filename=file_qrcode))
 
     tables = document.tables
     p = tables[3].rows[0].cells[1].add_paragraph()
