@@ -4,7 +4,7 @@ import random
 import openpyxl
 
 from Questions.question import Question
-from config import file_xlsx, map_excel, path_questions
+from config import file_xlsx, map_excel, PATH_QUESTIONS
 
 
 def get_all_questions_from_excel_file(exam: str) -> [Question]:
@@ -61,7 +61,7 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
                     ))
             i += 3
 
-    file_json = os.path.join(path_questions, f'{exam}.json')
+    file_json = os.path.join(PATH_QUESTIONS, f'{exam}.json')
     # with open(file_json, 'w', encoding='utf-8') as f:
     #     f.write(json.dumps(all_questions))
     return all_questions

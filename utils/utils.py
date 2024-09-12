@@ -9,9 +9,9 @@ def mkdir(path: str):
 
 
 def create_folders(name):
-    os.makedirs(f'{dir_out}/{name}/json', exist_ok=True)
-    os.makedirs(f'{dir_out}/{name}/pdf', exist_ok=True)
-    os.makedirs(f'{dir_out}/{name}/docx', exist_ok=True)
+    os.makedirs(os.path.join(dir_out, name, 'json'), exist_ok=True)
+    os.makedirs(os.path.join(dir_out, name, 'pdf'), exist_ok=True)
+    os.makedirs(os.path.join(dir_out, name, 'docx'), exist_ok=True)
 
 
 def get_from_json(path: str) -> dict:
