@@ -37,6 +37,25 @@ class Question:
 
         self.right_answer: str = ''
 
+    def mix_answers(self):
+        keys = ['A', 'B', 'C', 'D']
+        temp_dict = {}
+        self.right_answer = self.ans_a
+        for i in range(len(self.mix)):
+            if self.mix[i] == '1':
+                temp_dict[keys[i]] = self.ans_a
+            elif q.mix[i] == '2':
+                temp_dict[keys[i]] = self.ans_b
+            elif q.mix[i] == '3':
+                temp_dict[keys[i]] = self.ans_c
+            elif q.mix[i] == '4':
+                temp_dict[keys[i]] = self.ans_d
+
+        self.answer_doc_a = temp_dict[keys[0]]
+        self.answer_doc_b = temp_dict[keys[1]]
+        self.answer_doc_c = temp_dict[keys[2]]
+        self.answer_doc_d = temp_dict[keys[3]]
+
 
 def create_new_ticket(questions: [Question], max_num_question: int) -> [Question]:
     ticket = []
@@ -70,24 +89,3 @@ def create_random_name_ticket(exam: str) -> str:
     rand = random.choices(digits, k=2)
     ticket_name += ''.join(rand)
     return ticket_name
-
-
-def mix_value(q: Question) -> Question:
-    keys = ['A', 'B', 'C', 'D']
-    __temp_dict = {}
-    q.right_answer = q.ans_a
-    for i in range(len(q.mix)):
-        if q.mix[i] == '1':
-            __temp_dict[keys[i]] = q.ans_a
-        elif q.mix[i] == '2':
-            __temp_dict[keys[i]] = q.ans_b
-        elif q.mix[i] == '3':
-            __temp_dict[keys[i]] = q.ans_c
-        elif q.mix[i] == '4':
-            __temp_dict[keys[i]] = q.ans_d
-
-    q.answer_doc_a = __temp_dict[keys[0]]
-    q.answer_doc_b = __temp_dict[keys[1]]
-    q.answer_doc_c = __temp_dict[keys[2]]
-    q.answer_doc_d = __temp_dict[keys[3]]
-    return q

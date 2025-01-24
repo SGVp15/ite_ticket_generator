@@ -5,11 +5,11 @@ import random
 import openpyxl
 
 from Questions.question import Question
-from config import file_xlsx, map_excel, PATH_QUESTIONS
+from config import FILE_XLSX, map_excel, PATH_QUESTIONS
 
 
 def get_all_questions_from_excel_file(exam: str) -> [Question]:
-    file = file_xlsx[exam]
+    file = FILE_XLSX[exam]
     wb = openpyxl.load_workbook(filename=f'{file}', data_only=True)
     page_name = wb.sheetnames
     page_name = str(page_name[0])

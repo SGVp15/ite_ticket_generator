@@ -2,13 +2,13 @@ import os
 
 LOG_FILE = './log.txt'
 
-course_number = {'ITIL4FC': '01',
+COURSE_NUMBER = {'ITIL4FC': '01',
                  'CobitC': '02',
                  'BAFC': '03',
                  'BASRMC': '04',
                  'SCMC': '05'}
 
-full_name_course = {'ITIL4FC': 'ITIL 4 Основы сервис-менеджмента',
+FULL_NAME_COURSE = {'ITIL4FC': 'ITIL 4 Основы сервис-менеджмента',
                     'CobitC': 'Основы Cobit 2019',
                     'BAFC': 'Основы бизнес-анализа',
                     'SCMC': 'SCMC',
@@ -17,7 +17,7 @@ full_name_course = {'ITIL4FC': 'ITIL 4 Основы сервис-менеджм�
 
 PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
 
-file_xlsx = {
+FILE_XLSX = {
     'ITIL4FC': os.path.join(PATH_QUESTIONS, 'ITIL4FC.xlsx'),
     'CobitC': os.path.join(PATH_QUESTIONS, 'CobitС.xlsx'),
     'BAFC': os.path.join(PATH_QUESTIONS, 'BAFC.xlsx'),
@@ -39,30 +39,32 @@ map_excel = {
     'Версия': 'M',
 }
 
-mix_aswer = ['1234',
-             '1243',
-             '1324',
-             '1342',
-             '1423',
-             '1432',
-             '2134',
-             '2143',
-             '2314',
-             '2341',
-             '2413',
-             '2431',
-             '3124',
-             '3142',
-             '3214',
-             '3241',
-             '3412',
-             '3421',
-             '4123',
-             '4132',
-             '4213',
-             '4231',
-             '4312',
-             '4321']
+mix_aswer = [
+    '1234',
+    '1243',
+    '1324',
+    '1342',
+    '1423',
+    '1432',
+    '2134',
+    '2143',
+    '2314',
+    '2341',
+    '2413',
+    '2431',
+    '3124',
+    '3142',
+    '3214',
+    '3241',
+    '3412',
+    '3421',
+    '4123',
+    '4132',
+    '4213',
+    '4231',
+    '4312',
+    '4321',
+]
 
 # Папка для выгрузки экзаменов
-dir_out = './data/out'
+DIR_OUT = './data/out'

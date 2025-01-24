@@ -1,6 +1,6 @@
 import qrcode
 
-from config import course_number
+from config import COURSE_NUMBER
 from ticket_.ticket import Ticket
 
 
@@ -10,7 +10,7 @@ def create_qrcode(text: str, filename: str):
 
 
 def get_qrcode_text_from_ticket(ticket: Ticket) -> str:
-    s = f"{course_number[ticket.exam_name]}"
+    s = f"{COURSE_NUMBER[ticket.exam_name]}"
     for q in ticket.questions:
         s += f"{int(q.num_question):03d}"
         s += f"{int(q.category):02d}"

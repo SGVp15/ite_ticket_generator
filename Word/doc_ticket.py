@@ -7,7 +7,7 @@ from docx import Document
 from docx.shared import Inches
 
 from Word.replace import replace_docx_text
-from config import docx_template, full_name_course
+from config import docx_template, FULL_NAME_COURSE
 from qr_code.qr_creator import create_qrcode, get_qrcode_text_from_ticket
 from ticket_.ticket import Ticket
 
@@ -59,7 +59,7 @@ def create_docx(ticket: Ticket):
     # r.add_picture(ticket.file_qrcode, width=Inches(1))
 
 
-    course = full_name_course[ticket.questions[1].exam]
+    course = FULL_NAME_COURSE[ticket.questions[1].exam]
 
     replace_docx_text(document, old_text='Code', new_text=ticket.ticket_name)
     replace_docx_text(document, old_text='Exam', new_text=ticket.exam_name)
