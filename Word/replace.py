@@ -8,7 +8,7 @@ def replace_docx_text(document, old_text, new_text):
 
 
 def docx_replace_regex(doc_obj, old_text: str, new_text: str):
-    # Замена в параграфах
+    # Replace in paragraphs
     for paragraph in doc_obj.paragraphs:
         if old_text not in paragraph.text:
             continue
@@ -24,7 +24,7 @@ def docx_replace_regex(doc_obj, old_text: str, new_text: str):
                 runs[i].text = ''
         runs[0].text = runs[0].text.replace(old_text, new_text)
 
-    # Замена в таблицах
+    # Replace in Tables
     for table in doc_obj.tables:
         for row in table.rows:
             for cell in row.cells:

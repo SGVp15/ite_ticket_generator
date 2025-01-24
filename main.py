@@ -24,8 +24,8 @@ def create_txt(ticket: Ticket):
 
 if __name__ == '__main__':
     exams = []
-    exams.append('SCMC')
-    # exams.append('ITILFC')
+    # exams.append('SCMC')
+    exams.append('ITIL4FC')
 
     for exam in exams:
         create_folders(exam)
