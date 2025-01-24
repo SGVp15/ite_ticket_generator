@@ -2,7 +2,7 @@ import os
 import re
 
 from Excel.excel import get_all_questions_from_excel_file, all_in_one_excel
-from Questions.question import create_new_ticket, create_names_tickets
+from Questions.question import create_new_ticket, create_random_name_ticket
 from Word.doc_ticket import create_docx, convert_docx_to_pdf
 from config import dir_out
 from ticket_.ticket import Ticket
@@ -25,14 +25,15 @@ def create_txt(ticket: Ticket):
 if __name__ == '__main__':
     exams = []
     exams.append('SCMC')
+    # exams.append('ITILFC')
 
     for exam in exams:
+        create_folders(exam)
         print(f'\n{exam}[  create_new_tickets  ]')
         # create_excel_file_for_ispring(get_all_questions_from_excel_file(exam))
         all_questions = get_all_questions_from_excel_file(exam)
 
-        create_folders(exam)
-        tickets_names = create_names_tickets(exam, num=1)
+        tickets_names = [create_random_name_ticket(exam) for n in range(1)]
 
         # set_to_json(obj=ticket, file_name=f'{name}')
         for ticket_name in tickets_names:

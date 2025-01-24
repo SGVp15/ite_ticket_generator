@@ -5,7 +5,7 @@ import os
 
 class Ticket:
     def __init__(self, ticket_name: str, exam_name: str, questions: Question):
-        self.number_of_questions = len(questions)
+        self.total_count_of_questions = len(questions)
         self.ticket_name = ticket_name
         self.exam_name = exam_name
         self.questions = questions

@@ -60,21 +60,16 @@ def create_new_ticket(questions: [Question], max_num_question: int) -> [Question
                    f"C: {q.answer_doc_c}\n\n" \
                    f"D: {q.answer_doc_d}\n\n"
     l = random.choices(ascii_lowercase, k=5)
-    # create_json(ticket=ticket, name=name)
     return ticket
 
 
-def create_names_tickets(exam: str, num) -> [str]:
-    tickets_name = []
-    for i in range(num):
-        ticket_name = f'{exam}'
-        ticket_name += f'{i:03d}'
-        rand = random.choices(ascii_uppercase, k=3)
-        ticket_name += ''.join(rand)
-        rand = random.choices(digits, k=2)
-        ticket_name += ''.join(rand)
-        tickets_name.append(ticket_name)
-    return tickets_name
+def create_random_name_ticket(exam: str) -> str:
+    ticket_name = f'{exam}_'
+    rand = random.choices(ascii_uppercase, k=3)
+    ticket_name += ''.join(rand)
+    rand = random.choices(digits, k=2)
+    ticket_name += ''.join(rand)
+    return ticket_name
 
 
 def mix_value(q: Question) -> Question:

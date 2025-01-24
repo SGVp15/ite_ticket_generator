@@ -17,15 +17,16 @@ full_name_course = {'ITILFC': 'ITIL 4 Основы сервис-менеджме
 
 PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
 
-file_xlsx = {'ITIL4FC': os.path.join(PATH_QUESTIONS, 'ITIL4FC.xlsx'),
-             'CobitC': os.path.join(PATH_QUESTIONS, 'CobitС.xlsx'),
-             'BAFC': os.path.join(PATH_QUESTIONS, 'BAFC.xlsx'),
-             'BASRMC': os.path.join(PATH_QUESTIONS, 'BASRMC.xlsx'),
-             'COBIT ICSC': os.path.join(PATH_QUESTIONS, 'COBIT ICSC.xlsx'),
-             'RCVC': os.path.join(PATH_QUESTIONS, 'RCVC.xlsx'),
-             'SCMC': os.path.join(PATH_QUESTIONS, 'SCMC.xlsx'),
-             'CPIC': os.path.join(PATH_QUESTIONS, 'CPIC.xlsx'),
-             }
+file_xlsx = {
+    'ITIL4FC': os.path.join(PATH_QUESTIONS, 'ITIL4FC.xlsx'),
+    'CobitC': os.path.join(PATH_QUESTIONS, 'CobitС.xlsx'),
+    'BAFC': os.path.join(PATH_QUESTIONS, 'BAFC.xlsx'),
+    'BASRMC': os.path.join(PATH_QUESTIONS, 'BASRMC.xlsx'),
+    'COBIT ICSC': os.path.join(PATH_QUESTIONS, 'COBIT ICSC.xlsx'),
+    'RCVC': os.path.join(PATH_QUESTIONS, 'RCVC.xlsx'),
+    'SCMC': os.path.join(PATH_QUESTIONS, 'SCMC.xlsx'),
+    'CPIC': os.path.join(PATH_QUESTIONS, 'CPIC.xlsx'),
+}
 
 docx_template = './Шаблон экзамена.docx'
 
