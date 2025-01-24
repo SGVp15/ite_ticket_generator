@@ -1,7 +1,7 @@
 import random
 from string import ascii_lowercase, ascii_uppercase, digits
 
-from config import mix_aswer
+from config import MIX_ASWER
 
 
 class Question:
@@ -30,31 +30,36 @@ class Question:
         self.exam: str = exam
 
         self.mix: str = ''
-        self.answer_doc_a: str = ''
-        self.answer_doc_b: str = ''
-        self.answer_doc_c: str = ''
-        self.answer_doc_d: str = ''
+        self.show_answer_a: str = ''
+        self.show_answer_b: str = ''
+        self.show_answer_c: str = ''
+        self.show_answer_d: str = ''
 
         self.right_answer: str = ''
+        self.answer_text = f"A: {self.show_answer_a}\n\n" \
+                           f"B: {self.show_answer_b}\n\n" \
+                           f"C: {self.show_answer_c}\n\n" \
+                           f"D: {self.show_answer_d}\n\n"
 
     def mix_answers(self):
-        keys = ['A', 'B', 'C', 'D']
-        temp_dict = {}
-        self.right_answer = self.ans_a
-        for i in range(len(self.mix)):
-            if self.mix[i] == '1':
-                temp_dict[keys[i]] = self.ans_a
-            elif self.mix[i] == '2':
-                temp_dict[keys[i]] = self.ans_b
-            elif self.mix[i] == '3':
-                temp_dict[keys[i]] = self.ans_c
-            elif self.mix[i] == '4':
-                temp_dict[keys[i]] = self.ans_d
+        if self.mix:
+            keys = ['A', 'B', 'C', 'D']
+            temp_dict = {}
+            self.right_answer = self.ans_a
+            for i, k in enumerate(keys):
+                if self.mix[i] == '1':
+                    temp_dict[k] = self.ans_a
+                elif self.mix[i] == '2':
+                    temp_dict[k] = self.ans_b
+                elif self.mix[i] == '3':
+                    temp_dict[k] = self.ans_c
+                elif self.mix[i] == '4':
+                    temp_dict[k] = self.ans_d
 
-        self.answer_doc_a = temp_dict[keys[0]]
-        self.answer_doc_b = temp_dict[keys[1]]
-        self.answer_doc_c = temp_dict[keys[2]]
-        self.answer_doc_d = temp_dict[keys[3]]
+            self.show_answer_a = temp_dict[keys[0]]
+            self.show_answer_b = temp_dict[keys[1]]
+            self.show_answer_c = temp_dict[keys[2]]
+            self.show_answer_d = temp_dict[keys[3]]
 
 
 def create_new_ticket(questions: [Question], max_num_question: int) -> [Question]:
@@ -72,12 +77,9 @@ def create_new_ticket(questions: [Question], max_num_question: int) -> [Question
     # добавить перемешивание правило перемешивания 0-23 в отдельное поле
     for q in ticket:
         q.mix_num = random.randint(0, 23)
-        q.mix = mix_aswer[q.mix_num]
-        q = mix_value(q)
-        q.Answer = f"A: {q.answer_doc_a}\n\n" \
-                   f"B: {q.answer_doc_b}\n\n" \
-                   f"C: {q.answer_doc_c}\n\n" \
-                   f"D: {q.answer_doc_d}\n\n"
+        q.mix = MIX_ASWER[q.mix_num]
+        q.mix_value()
+
     l = random.choices(ascii_lowercase, k=5)
     return ticket
 

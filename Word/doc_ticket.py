@@ -74,7 +74,7 @@ def create_docx(ticket: Ticket):
             replace_docx_text(
                 document,
                 old_text=f'Answer_{i + 1}',
-                new_text=ticket.questions[i].Answer
+                new_text=ticket.questions[i].answer_text
             )
         except IndexError:
             break

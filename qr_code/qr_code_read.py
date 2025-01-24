@@ -1,7 +1,7 @@
 import cv2
 from pyzbar import pyzbar
 
-from config import mix_aswer
+from config import MIX_ASWER
 import os
 
 for file in os.listdir('./qr/'):
@@ -21,7 +21,7 @@ for file in os.listdir('./qr/'):
             a = k * i
             num = int(data[a:a + 3])
             category = int(data[a + 3:a + 5])
-            answer = mix_aswer[int(data[a + 7:a + 9])]
+            answer = MIX_ASWER[int(data[a + 7:a + 9])]
             answer = keys[answer.find('1')]
             version = int(data[a + 5:a + 7])
 
