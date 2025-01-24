@@ -33,14 +33,6 @@ def get_random_index_list_quest(list_quest, max_group):
     return out
 
 
-def convert_docx_to_pdf(file):
-    pdf = f'{os.getcwd()}/{file}.pdf'
-    print(pdf)
-    docx2pdf.convert(f'./{file}.docx', pdf)
-    print(file)
-    time.sleep(0.1)
-
-
 def create_docx(ticket: Ticket):
     document = Document(docx_template)
     # replace_docx_text(document, old_text='Exam', new_text=ticket.exam)
@@ -52,12 +44,10 @@ def create_docx(ticket: Ticket):
     r = p.add_run()
     r.add_picture(ticket.file_qrcode, width=Inches(2))
 
-
     p = tables[0].rows[0].cells[1].add_paragraph()
     r = p.add_run()
     r.add_picture(ticket.file_qrcode_exam_num, width=Inches(1))
     # r.add_picture(ticket.file_qrcode, width=Inches(1))
-
 
     course = FULL_NAME_COURSE[ticket.questions[1].exam]
 

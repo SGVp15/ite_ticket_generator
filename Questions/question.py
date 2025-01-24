@@ -1,5 +1,5 @@
 import random
-from string import ascii_lowercase, ascii_uppercase, digits
+from string import ascii_lowercase
 
 from config import MIX_ASWER
 
@@ -36,10 +36,14 @@ class Question:
         self.show_answer_d: str = ''
 
         self.right_answer: str = ''
+        self.answer_text: str = self.replace_answer_text()
+
+    def replace_answer_text(self):
         self.answer_text = f"A: {self.show_answer_a}\n\n" \
                            f"B: {self.show_answer_b}\n\n" \
                            f"C: {self.show_answer_c}\n\n" \
                            f"D: {self.show_answer_d}\n\n"
+        return self.answer_text
 
     def mix_answers(self):
         if self.mix:
@@ -60,6 +64,7 @@ class Question:
             self.show_answer_b = temp_dict[keys[1]]
             self.show_answer_c = temp_dict[keys[2]]
             self.show_answer_d = temp_dict[keys[3]]
+        self.replace_answer_text()
 
 
 def create_new_ticket(questions: [Question], max_num_question: int) -> [Question]:
@@ -78,16 +83,7 @@ def create_new_ticket(questions: [Question], max_num_question: int) -> [Question
     for q in ticket:
         q.mix_num = random.randint(0, 23)
         q.mix = MIX_ASWER[q.mix_num]
-        q.mix_value()
+        q.mix_answers()
 
     l = random.choices(ascii_lowercase, k=5)
     return ticket
-
-
-def create_random_name_ticket(exam: str) -> str:
-    ticket_name = f'{exam}_'
-    rand = random.choices(ascii_uppercase, k=3)
-    ticket_name += ''.join(rand)
-    rand = random.choices(digits, k=2)
-    ticket_name += ''.join(rand)
-    return ticket_name
