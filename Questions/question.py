@@ -44,11 +44,11 @@ class Question:
         for i in range(len(self.mix)):
             if self.mix[i] == '1':
                 temp_dict[keys[i]] = self.ans_a
-            elif q.mix[i] == '2':
+            elif self.mix[i] == '2':
                 temp_dict[keys[i]] = self.ans_b
-            elif q.mix[i] == '3':
+            elif self.mix[i] == '3':
                 temp_dict[keys[i]] = self.ans_c
-            elif q.mix[i] == '4':
+            elif self.mix[i] == '4':
                 temp_dict[keys[i]] = self.ans_d
 
         self.answer_doc_a = temp_dict[keys[0]]
