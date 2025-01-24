@@ -85,5 +85,4 @@ def create_new_ticket(questions: [Question], max_num_question: int) -> [Question
         q.mix = MIX_ASWER[q.mix_num]
         q.mix_answers()
 
-    l = random.choices(ascii_lowercase, k=5)
     return ticket
