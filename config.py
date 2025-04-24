@@ -1,19 +1,30 @@
 import os
 
+
+COUNT_QUESTIONS_IN_TICKET = 30
+
 LOG_FILE = './log.txt'
 
-COURSE_NUMBER = {'ITIL4FC': '01',
-                 'CobitC': '02',
-                 'BAFC': '03',
-                 'BASRMC': '04',
-                 'SCMC': '05'}
+COURSE_NUMBER = {
+    'ITIL4FC': '01',
+    'CobitC': '02',
+    'BAFC': '03',
+    'BASRMC': '04',
+    'SCMC': '05',
 
-FULL_NAME_COURSE = {'ITIL4FC': 'ITIL 4 Основы сервис-менеджмента',
-                    'CobitC': 'Основы Cobit 2019',
-                    'BAFC': 'Основы бизнес-анализа',
-                    'SCMC': 'SCMC',
-                    'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
-                    }
+    'SCM_T': '06',
+}
+
+FULL_NAME_COURSE = {
+    'ITIL4FC': 'ITIL 4 Основы сервис-менеджмента',
+    'CobitC': 'Основы Cobit 2019',
+    'BAFC': 'Основы бизнес-анализа',
+    'SCMC': 'SCMC',
+    'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
+
+    'SCM_T': 'SCM_T',
+
+}
 
 PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
 
@@ -26,13 +37,14 @@ FILE_XLSX = {
     'RCVC': os.path.join(PATH_QUESTIONS, 'RCVC.xlsx'),
     'SCMC': os.path.join(PATH_QUESTIONS, 'SCMC.xlsx'),
     'CPIC': os.path.join(PATH_QUESTIONS, 'CPIC.xlsx'),
+
+    'SCM_T': os.path.join(PATH_QUESTIONS, 'SCM_T.xlsx'),
 }
 
-docx_template = './Шаблон экзамена.docx'
+DOCX_TEMPLATE = './Шаблон экзамена.docx'
 
-map_excel = {
+MAP_EXCEL = {
     'Уровень по Блуму': 'D',
-    'Раздел курса': 'E',
     'Код вопроса': 'I',
     'Блок вопросов': 'J',
     'Действующий 1-да, 0-нет': 'L',

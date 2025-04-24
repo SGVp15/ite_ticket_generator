@@ -5,7 +5,7 @@ import random
 import openpyxl
 
 from Questions.question import Question
-from config import FILE_XLSX, map_excel, PATH_QUESTIONS
+from config import FILE_XLSX, MAP_EXCEL, PATH_QUESTIONS
 
 
 def get_all_questions_from_excel_file(exam: str) -> [Question]:
@@ -13,9 +13,9 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
     wb = openpyxl.load_workbook(filename=f'{file}', data_only=True)
     page_name = wb.sheetnames
     page_name = str(page_name[0])
-    col_id_question = map_excel['Код вопроса']
-    col_box_question = map_excel['Блок вопросов']
-    column_enable_question = map_excel['Действующий 1-да, 0-нет']
+    col_id_question = MAP_EXCEL['Код вопроса']
+    col_box_question = MAP_EXCEL['Блок вопросов']
+    column_enable_question = MAP_EXCEL['Действующий 1-да, 0-нет']
 
     column_a = 'a'
     column_main = 'b'
@@ -36,7 +36,7 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
             if enable_question:
                 id_question = read_excel(wb, page_name, col_id_question, i)
                 box_question = read_excel(wb, page_name, col_box_question, i)
-                if box_question == 'None':
+                if box_question in ('None', None, 0, 'Nan'):
                     box_question = random.randint(200, 300_000_000_000)
                 ans_a = read_excel(wb, page_name, column_main, i + 1)
                 ans_b = read_excel(wb, page_name, column_main, i + 2)
@@ -45,7 +45,6 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
                 num_q += 1
                 text_question = read_excel(wb, page_name, column_main, i)
                 num_question, category, version = get_num_question_category_version(id_question)
-                category = read_excel(wb, page_name, "D", i)
                 all_questions.append(
                     Question(
                         id_question=id_question,
@@ -56,7 +55,7 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
                         ans_d=ans_d,
                         box_question=box_question,
                         num_question=num_question,
-                        category=category,
+                        num_category=category,
                         version=version,
                         exam=exam,
                     ))
