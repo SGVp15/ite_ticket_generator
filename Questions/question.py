@@ -15,6 +15,7 @@ class Question:
                  box_question,
                  num_question,
                  num_category,
+                 category,
                  version,
                  exam, ):
         self.id_question: str = id_question
@@ -25,7 +26,8 @@ class Question:
         self.ans_d: str = ans_d
         self.box_question: str = box_question
         self.num_question: int = num_question
-        self.category: str = num_category
+        self.num_category: str = num_category
+        self.category: str = category
         self.version: int = version
         self.exam: str = exam
 

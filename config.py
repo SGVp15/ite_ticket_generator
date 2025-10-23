@@ -1,6 +1,5 @@
 import os
 
-
 COUNT_QUESTIONS_IN_TICKET = 30
 
 LOG_FILE = './log.txt'
@@ -49,6 +48,7 @@ MAP_EXCEL = {
     'Блок вопросов': 'J',
     'Действующий 1-да, 0-нет': 'L',
     'Версия': 'M',
+    'Раздел курса': 'E'
 }
 
 MIX_ASWER = [

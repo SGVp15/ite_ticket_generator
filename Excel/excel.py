@@ -1,21 +1,40 @@
-import json
 import os
 import random
 
 import openpyxl
+from openpyxl import load_workbook
 
 from Questions.question import Question
-from config import FILE_XLSX, MAP_EXCEL, PATH_QUESTIONS
+from config import FILE_XLSX, MAP_EXCEL
+
+
+def read_excel_file(filename='', sheet_names=()) -> {list}:
+    workbook = load_workbook(filename=filename, read_only=True, data_only=True)
+    all_data = {}
+    for sheet_name in sheet_names:
+        sheet = workbook[sheet_name]
+        data = []
+        for row in sheet.iter_rows(values_only=True):
+            data.append(list(row))
+        all_data[sheet_name] = data
+    workbook.close()
+    return all_data
 
 
 def get_all_questions_from_excel_file(exam: str) -> [Question]:
     file = FILE_XLSX[exam]
+
+    # data = read_excel_file(file, sheet_names=('SCM',))
+    # labels = data['SCM'][0]
+
     wb = openpyxl.load_workbook(filename=f'{file}', data_only=True)
     page_name = wb.sheetnames
     page_name = str(page_name[0])
+
     col_id_question = MAP_EXCEL['Код вопроса']
     col_box_question = MAP_EXCEL['Блок вопросов']
     column_enable_question = MAP_EXCEL['Действующий 1-да, 0-нет']
+    col_category = MAP_EXCEL['Раздел курса']
 
     column_a = 'a'
     column_main = 'b'
@@ -24,27 +43,28 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
     num_q = 0
 
     i = 0
-    while i < 20000:
+    while i < 20_000:
         i += 1
-        a = read_excel(wb, page_name, column_a, i + 1).lower()
-        b = read_excel(wb, page_name, column_a, i + 2).lower()
-        c = read_excel(wb, page_name, column_a, i + 3).lower()
-        d = read_excel(wb, page_name, column_a, i + 4).lower()
+        a = _read_excel(wb, page_name, column_a, i + 1).lower()
+        b = _read_excel(wb, page_name, column_a, i + 2).lower()
+        c = _read_excel(wb, page_name, column_a, i + 3).lower()
+        d = _read_excel(wb, page_name, column_a, i + 4).lower()
 
         if a in ('a', 'а') and b in ('b', 'в') and c in ('c', 'с') and d == 'd':
-            enable_question = read_excel(wb, page_name, column_enable_question, i)
+            enable_question = _read_excel(wb, page_name, column_enable_question, i)
             if enable_question:
-                id_question = read_excel(wb, page_name, col_id_question, i)
-                box_question = read_excel(wb, page_name, col_box_question, i)
+                id_question = _read_excel(wb, page_name, col_id_question, i)
+                box_question = _read_excel(wb, page_name, col_box_question, i)
+                category = _read_excel(wb, page_name, col_category, i)
                 if box_question in ('None', None, 0, 'Nan'):
                     box_question = random.randint(200, 300_000_000_000)
-                ans_a = read_excel(wb, page_name, column_main, i + 1)
-                ans_b = read_excel(wb, page_name, column_main, i + 2)
-                ans_c = read_excel(wb, page_name, column_main, i + 3)
-                ans_d = read_excel(wb, page_name, column_main, i + 4)
+                ans_a = _read_excel(wb, page_name, column_main, i + 1)
+                ans_b = _read_excel(wb, page_name, column_main, i + 2)
+                ans_c = _read_excel(wb, page_name, column_main, i + 3)
+                ans_d = _read_excel(wb, page_name, column_main, i + 4)
                 num_q += 1
-                text_question = read_excel(wb, page_name, column_main, i)
-                num_question, category, version = get_num_question_category_version(id_question)
+                text_question = _read_excel(wb, page_name, column_main, i)
+                num_question, num_category, version = get_num_question_category_version(id_question)
                 all_questions.append(
                     Question(
                         id_question=id_question,
@@ -55,8 +75,9 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
                         ans_d=ans_d,
                         box_question=box_question,
                         num_question=num_question,
-                        num_category=category,
+                        num_category=num_category,
                         version=version,
+                        category=category,
                         exam=exam,
                     ))
             i += 3
@@ -67,7 +88,7 @@ def get_all_questions_from_excel_file(exam: str) -> [Question]:
     return all_questions
 
 
-def read_excel(excel, page_name, column, row):
+def _read_excel(excel, page_name, column, row):
     sheet_ranges = excel[page_name]
     return str(sheet_ranges[f'{column}{row}'].value).strip()
 
