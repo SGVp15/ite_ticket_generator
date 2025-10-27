@@ -9,7 +9,7 @@ from config import DIR_OUT, FULL_NAME_COURSE
 
 
 class Ticket:
-    def __init__(self, exam_name: str, questions: Question):
+    def __init__(self, exam_name: str, questions: [Question]):
         self.total_count_of_questions = len(questions)
         self.exam_name = exam_name
         self.full_name_course = FULL_NAME_COURSE[exam_name]
@@ -32,12 +32,14 @@ class Ticket:
 def create_txt(ticket: Ticket):
     with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
         for q in ticket.questions:
-            f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, str(q.num_category)])}\n")
+            q: Question
+            f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, str(q.num_category), q.category])}\n")
 
     num = re.findall(r"\d+", ticket.ticket_name)
     with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}_to_excel.txt', mode='w', encoding='utf-8') as f:
         f.write(f'{num[0]}\t\n')
         for q in ticket.questions:
+            q: Question
             f.write(f"{'\t'.join([q.right_answer, str(q.num_category)])}\n")
 
 

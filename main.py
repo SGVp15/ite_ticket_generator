@@ -27,17 +27,17 @@ def main():
             )
             create_txt(ticket=ticket)
             create_gift(ticket=ticket)
-            # create_docx(ticket=ticket)
+            create_docx(ticket=ticket)
 
-        # print('\n[  convert_docx_to_pdf  ]')
-        # docx_files = set([x[:-5] for x in os.listdir(f'./{DIR_OUT}/{exam}/docx') if x.endswith('.docx')])
-        # pdf_files = set([x[:-4] for x in os.listdir(f'./{DIR_OUT}/{exam}/pdf') if x.endswith('.pdf')])
-        # docx_files = docx_files - pdf_files
-        # for name in docx_files:
-        #     docx = os.path.join(DIR_OUT, exam, 'docx', f'{name}.docx')
-        #     pdf = os.path.join(DIR_OUT, exam, 'pdf', f'{name}.pdf')
-        #     docx2pdf.convert(docx, pdf)
-        #     print(docx)
+        print('\n[  convert_docx_to_pdf  ]')
+        docx_files = set([x[:-5] for x in os.listdir(f'./{DIR_OUT}/{exam}/docx') if x.endswith('.docx')])
+        pdf_files = set([x[:-4] for x in os.listdir(f'./{DIR_OUT}/{exam}/pdf') if x.endswith('.pdf')])
+        docx_files = docx_files - pdf_files
+        for name in docx_files:
+            docx = os.path.join(DIR_OUT, exam, 'docx', f'{name}.docx')
+            pdf = os.path.join(DIR_OUT, exam, 'pdf', f'{name}.pdf')
+            docx2pdf.convert(docx, pdf)
+            print(docx)
 
 
 if __name__ == '__main__':

@@ -37,11 +37,12 @@ def create_docx(ticket: Ticket):
     create_qrcode(text=get_qrcode_text_from_ticket(ticket), filename=ticket.file_qrcode)
 
     tables = document.tables
-    p = tables[3].rows[0].cells[1].add_paragraph()
-    r = p.add_run()
-    r.add_picture(ticket.file_qrcode, width=Inches(2))
-
     p = tables[0].rows[0].cells[1].add_paragraph()
+    # p = tables[3].rows[0].cells[1].add_paragraph()
+    r = p.add_run()
+    r.add_picture(ticket.file_qrcode, width=Inches(1))
+
+    p = tables[0].rows[0].cells[2].add_paragraph()
     r = p.add_run()
     r.add_picture(ticket.file_qrcode_exam_num, width=Inches(1))
     # r.add_picture(ticket.file_qrcode, width=Inches(1))
