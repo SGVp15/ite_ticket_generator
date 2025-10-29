@@ -38,14 +38,14 @@ def create_docx(ticket: Ticket):
 
     tables = document.tables
     p = tables[0].rows[0].cells[1].add_paragraph()
-    # p = tables[3].rows[0].cells[1].add_paragraph()
     r = p.add_run()
-    r.add_picture(ticket.file_qrcode, width=Inches(1))
+    r.add_picture(ticket.file_qrcode, width=Inches(1), height=Inches(1))
+    # r.add_picture(ticket.file_qrcode, width=2* 360000)
 
     p = tables[0].rows[0].cells[2].add_paragraph()
     r = p.add_run()
-    r.add_picture(ticket.file_qrcode_exam_num, width=Inches(1))
-    # r.add_picture(ticket.file_qrcode, width=Inches(1))
+    r.add_picture(ticket.file_qrcode_exam_num, width=Inches(1), height=Inches(1))
+    # r.add_picture(ticket.file_qrcode_exam_num, width=2* 360000)
 
     replace_docx_text(document, old_text='Code', new_text=ticket.ticket_name)
     replace_docx_text(document, old_text='Exam', new_text=ticket.exam_name)

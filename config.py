@@ -10,8 +10,15 @@ COURSE_NUMBER = {
     'BAFC': '03',
     'BASRMC': '04',
     'SCMC': '05',
-
-    'SCM_T': '06',
+    'CPIC': '06',
+    'ICSC': '07',
+    'ITAMC': '08',
+    'ITHRC': '09',
+    'OPSC': '10',
+    'RCVC': '11',
+    'RISKC': '12',
+    'SOA4C': '13',
+    'SYSAC': '14',
 }
 
 FULL_NAME_COURSE = {
@@ -20,9 +27,6 @@ FULL_NAME_COURSE = {
     'BAFC': 'Основы бизнес-анализа',
     'SCMC': 'SCMC',
     'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
-
-    'SCM_T': 'SCM_T',
-
 }
 
 PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
