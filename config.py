@@ -27,6 +27,8 @@ FULL_NAME_COURSE = {
     'BAFC': 'Основы бизнес-анализа',
     'SCMC': 'SCMC',
     'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
+    'OPSC': 'OPSC',
+
 }
 
 PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
@@ -40,6 +42,7 @@ FILE_XLSX = {
     'RCVC': os.path.join(PATH_QUESTIONS, 'RCVC.xlsx'),
     'SCMC': os.path.join(PATH_QUESTIONS, 'SCMC.xlsx'),
     'CPIC': os.path.join(PATH_QUESTIONS, 'CPIC.xlsx'),
+    'OPSC': os.path.join(PATH_QUESTIONS, 'OPSC.xlsx'),
 
     'SCM_T': os.path.join(PATH_QUESTIONS, 'SCM_T.xlsx'),
 }
