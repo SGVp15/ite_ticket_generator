@@ -1,5 +1,5 @@
-import os
 import itertools
+from pathlib import Path
 
 COUNT_QUESTIONS_IN_TICKET = 30
 
@@ -32,20 +32,21 @@ FULL_NAME_COURSE = {
 
 }
 
-PATH_QUESTIONS = os.path.join(os.getcwd(), 'data', 'input')
+PATH_QUESTIONS = Path('data') / 'input'
+PATH_QUESTIONS.mkdir(exist_ok=True,parents=True)
 
 FILE_XLSX = {
-    'ITIL4FC': os.path.join(PATH_QUESTIONS, 'ITIL4FC.xlsx'),
-    'CobitC': os.path.join(PATH_QUESTIONS, 'CobitС.xlsx'),
-    'BAFC': os.path.join(PATH_QUESTIONS, 'BAFC.xlsx'),
-    'BASRMC': os.path.join(PATH_QUESTIONS, 'BASRMC.xlsx'),
-    'COBIT ICSC': os.path.join(PATH_QUESTIONS, 'COBIT ICSC.xlsx'),
-    'RCVC': os.path.join(PATH_QUESTIONS, 'RCVC.xlsx'),
-    'SCMC': os.path.join(PATH_QUESTIONS, 'SCMC.xlsx'),
-    'CPIC': os.path.join(PATH_QUESTIONS, 'CPIC.xlsx'),
-    'OPSC': os.path.join(PATH_QUESTIONS, 'OPSC.xlsx'),
+    'ITIL4FC': PATH_QUESTIONS / 'ITIL4FC.xlsx',
+    'CobitC': PATH_QUESTIONS / 'CobitС.xlsx',
+    'BAFC': PATH_QUESTIONS / 'BAFC.xlsx',
+    'BASRMC': PATH_QUESTIONS / 'BASRMC.xlsx',
+    'ICSC': PATH_QUESTIONS / 'ICSC.xlsx',
+    'RCVC': PATH_QUESTIONS / 'RCVC.xlsx',
+    'SCMC': PATH_QUESTIONS / 'SCMC.xlsx',
+    'CPIC': PATH_QUESTIONS / 'CPIC.xlsx',
+    'OPSC': PATH_QUESTIONS / 'OPSC.xlsx',
 
-    'SCM_T': os.path.join(PATH_QUESTIONS, 'SCM_T.xlsx'),
+    'SCM_T': PATH_QUESTIONS / 'SCM_T.xlsx',
 }
 
 DOCX_TEMPLATE = './Шаблон экзамена.docx'
@@ -61,5 +62,6 @@ MAP_EXCEL = {
 
 MIX_ANSWER = list(itertools.permutations('1234'))
 
-# Папка для выгрузки экзаменов
-DIR_OUT = './data/out'
+# Папка для выгрузки билетов
+DIR_OUT = Path('./data') / 'out'
+DIR_OUT.mkdir(exist_ok=True,parents=True)
