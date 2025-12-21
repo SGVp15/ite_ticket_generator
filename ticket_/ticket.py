@@ -44,17 +44,22 @@ def create_txt(ticket: Ticket):
 
 
 def create_gift(ticket: Ticket):
+    def replase_(s):
+        s = re.sub('=', '\=', s)
+        s = re.sub('~', '\~', s)
+        return s
+
     with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}_gift.txt', mode='w', encoding='utf-8') as f:
         s = ''
         for i, q in enumerate(ticket.questions):
             q: Question
             s += f'$CATEGORY: $module$/top/{q.category}\n\n'
-            s += (f"::Вопрос{i + 1}::{q.text_question}{{\n"
-                  f"\t={q.ans_a}\n"
-                  f"\t~{q.ans_b}\n"
-                  f"\t~{q.ans_c}\n"
-                  f"\t~{q.ans_d}\n"
-                  f"}}\n\n"
+            s += (f'::Вопрос {i + 1}::{q.text_question}{{\n'
+                  f'\t={replase_(q.ans_a)}\n'
+                  f'\t~{replase_(q.ans_b)}\n'
+                  f'\t~{replase_(q.ans_c)}\n'
+                  f'\t~{replase_(q.ans_d)}\n'
+                  f'}}\n\n'
                   )
         f.write(s)
 

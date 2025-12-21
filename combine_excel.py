@@ -1,4 +1,5 @@
 import glob
+import re
 
 import openpyxl
 
@@ -65,7 +66,10 @@ def combine_excel_files_no_pandas(output_filename="combined_data_openpyxl.xlsx")
                             continue
 
                             # Если это строка данных (не заголовки)
-                    elif row_index > 0:
+                    elif (row_index > 0
+                          and re.match(r'^\d+.*', str(row_data[0]))
+                          and row_data[4]
+                    ):
                         # Записываем данные + информацию об источнике
                         combined_ws.append(row_data + source_info)
                         current_row += 1

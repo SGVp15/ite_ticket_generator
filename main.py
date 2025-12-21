@@ -26,10 +26,10 @@ def main():
                 questions=create_new_ticket(all_questions, min(COUNT_QUESTIONS_IN_TICKET, len(all_questions))),
                 exam_name=exam
             )
-            create_txt(ticket=ticket)
+            # create_txt(ticket=ticket)
             create_gift(ticket=ticket)
-            create_docx(ticket=ticket)
-
+            # create_docx(ticket=ticket)
+            print(ticket_name)
         # print('\n[  convert_docx_to_pdf  ]')
         # docx_files = set([x[:-5] for x in os.listdir(f'./{DIR_OUT}/{exam}/docx') if x.endswith('.docx')])
         # pdf_files = set([x[:-4] for x in os.listdir(f'./{DIR_OUT}/{exam}/pdf') if x.endswith('.pdf')])
