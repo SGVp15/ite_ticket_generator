@@ -1,12 +1,9 @@
-import os
-
 import docx2pdf
 
 from Excel.excel import get_all_questions_from_excel_file
 from Questions.question import create_new_ticket
-from Word.doc_ticket import create_docx
-from config import DIR_OUT, COUNT_QUESTIONS_IN_TICKET
-from ticket_.ticket import Ticket, create_txt, create_gift
+from config import COUNT_QUESTIONS_IN_TICKET
+from ticket_.ticket import Ticket, create_gift
 from utils.utils import create_folders
 
 

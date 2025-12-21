@@ -1,7 +1,7 @@
-import os
 import random
 import re
 from copy import deepcopy
+from pathlib import Path
 from string import ascii_uppercase, digits
 
 from Questions.question import Question
@@ -16,10 +16,10 @@ class Ticket:
         self.ticket_name = ''
         self.create_random_name_ticket()
         self.questions = deepcopy(questions)
-        self.dir_out = os.path.join(DIR_OUT, self.exam_name)
-        self.word_path_file = os.path.join(self.dir_out, 'docx', f'{self.ticket_name}.docx')
-        self.file_qrcode = os.path.join(self.dir_out, f'{self.ticket_name}_exam_num.png')
-        self.file_qrcode_exam_num = os.path.join(self.dir_out, f'{self.ticket_name}.docx')
+        self.dir_out = Path(DIR_OUT) / self.exam_name
+        self.word_path_file = Path(self.dir_out) / 'docx' / f'{self.ticket_name}.docx'
+        self.file_qrcode = Path(self.dir_out) / f'{self.ticket_name}_exam_num.png'
+        self.file_qrcode_exam_num = Path(self.dir_out) / f'{self.ticket_name}.docx'
 
     def create_random_name_ticket(self):
         self.ticket_name = f'{self.exam_name}_'
@@ -30,7 +30,7 @@ class Ticket:
 
 
 def create_txt(ticket: Ticket):
-    with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
+    with open(file=DIR_OUT / ticket.exam_name / f'{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
         for q in ticket.questions:
             q: Question
             f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, str(q.num_category), q.category])}\n")
