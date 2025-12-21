@@ -4,7 +4,7 @@ import re
 import cv2
 from pyzbar import pyzbar
 
-from config import MIX_ASWER, COURSE_NUMBER
+from config import MIX_ANSWER, COURSE_NUMBER
 
 
 def __a():
@@ -25,7 +25,7 @@ def __a():
                 a = k * i
                 num = int(data[a:a + 3])
                 category = int(data[a + 3:a + 5])
-                answer = MIX_ASWER[int(data[a + 7:a + 9])]
+                answer = MIX_ANSWER[int(data[a + 7:a + 9])]
                 answer = keys[answer.find('1')]
                 version = int(data[a + 5:a + 7])
 
@@ -44,7 +44,7 @@ def uncoding(s: str):
     for i, row in enumerate(rows):
         num = int(row[:3])
         category = int(row[3:5])
-        answer = MIX_ASWER[int(row[7:9])]
+        answer = MIX_ANSWER[int(row[7:9])]
         answer = keys[answer.find('1')]
         version = int(row[5:7])
         print(f'{i + 1}\t{num=}\t{answer=}\t{category=}\t{version=}')

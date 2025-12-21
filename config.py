@@ -1,4 +1,5 @@
 import os
+import itertools
 
 COUNT_QUESTIONS_IN_TICKET = 30
 
@@ -58,7 +59,7 @@ MAP_EXCEL = {
     'Раздел курса': 'E'
 }
 
-MIX_ASWER = list(itertools.permutations('1234'))
+MIX_ANSWER = list(itertools.permutations('1234'))
 
 # Папка для выгрузки экзаменов
 DIR_OUT = './data/out'

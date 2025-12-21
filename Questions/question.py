@@ -1,7 +1,7 @@
 import random
 from string import ascii_lowercase
 
-from config import MIX_ASWER
+from config import MIX_ANSWER
 
 
 class Question:
@@ -84,7 +84,7 @@ def create_new_ticket(questions: [Question], max_num_question: int) -> [Question
     # добавить перемешивание правило перемешивания 0-23 в отдельное поле
     for q in ticket:
         q.mix_num = random.randint(0, 23)
-        q.mix = MIX_ASWER[q.mix_num]
+        q.mix = MIX_ANSWER[q.mix_num]
         q.mix_answers()
 
     return ticket
