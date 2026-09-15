@@ -2,17 +2,18 @@ import docx2pdf
 
 from Excel.excel import get_all_questions_from_excel_file
 from Questions.question import create_new_ticket
+from Word.doc_ticket import create_docx
 from config import COUNT_QUESTIONS_IN_TICKET
-from ticket_.ticket import Ticket, create_gift
+from ticket_.ticket import Ticket, create_gift, create_txt
 from utils.utils import create_folders
 
 
 def main():
     exams = []
     # exams.append('SCMC')
-    exams.append('OPSC')
+    # exams.append('OPSC')
     # exams.append('ITIL4FC')
-    # exams.append('SCM_T')
+    exams.append('SCM_T')
 
     for exam in exams:
         create_folders(exam)
@@ -20,12 +21,15 @@ def main():
         all_questions = get_all_questions_from_excel_file(exam)
         for ticket_name in range(1):
             ticket = Ticket(
-                questions=create_new_ticket(all_questions, min(COUNT_QUESTIONS_IN_TICKET, len(all_questions))),
+                questions=create_new_ticket(all_questions,
+                                            10,
+                                            # min(COUNT_QUESTIONS_IN_TICKET, len(all_questions)),
+                                            is_random_question=False),
                 exam_name=exam
             )
-            # create_txt(ticket=ticket)
-            create_gift(ticket=ticket)
-            # create_docx(ticket=ticket)
+            create_txt(ticket=ticket)
+            # create_gift(ticket=ticket)
+            create_docx(ticket=ticket)
             print(ticket_name)
         # print('\n[  convert_docx_to_pdf  ]')
         # docx_files = set([x[:-5] for x in os.listdir(f'./{DIR_OUT}/{exam}/docx') if x.endswith('.docx')])
@@ -39,5 +43,5 @@ def main():
 
 
 if __name__ == '__main__':
-    for i in range(1):
+    for i in range(10):
         main()

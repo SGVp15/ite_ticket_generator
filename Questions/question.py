@@ -69,12 +69,15 @@ class Question:
         self.replace_answer_text()
 
 
-def create_new_ticket(questions: [Question], max_num_question: int) -> [Question]:
+def create_new_ticket(questions: [Question], max_num_question: int, is_random_question: bool = True) -> [Question]:
     ticket = []
     box_question = []
     while len(ticket) < max_num_question and len(questions) > 0:
         max_len = max(0, len(questions) - 1)
-        n = random.randint(0, max_len)
+        if is_random_question:
+            n = random.randint(0, max_len)
+        else:
+            n = 0
         question = questions[n]
         if question.box_question == 'None' or question.box_question not in box_question:
             box_question.append(question.box_question)

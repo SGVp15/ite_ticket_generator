@@ -1,3 +1,4 @@
+import os
 import random
 import re
 from copy import deepcopy
@@ -30,17 +31,37 @@ class Ticket:
 
 
 def create_txt(ticket: Ticket):
+    os.makedirs(f'{DIR_OUT}/{ticket.exam_name}', exist_ok=True)
     with open(file=DIR_OUT / ticket.exam_name / f'{ticket.ticket_name}.txt', mode='w', encoding='utf-8') as f:
-        for q in ticket.questions:
-            q: Question
-            f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, str(q.num_category), q.category])}\n")
+        f.write("""Пробный экзамен 
+Выбор одного ответа из четырех вариантов ответа
 
-    num = re.findall(r"\d+", ticket.ticket_name)
-    with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}_to_excel.txt', mode='w', encoding='utf-8') as f:
-        f.write(f'{num[0]}\t\n')
-        for q in ticket.questions:
+Инструкции
+ 
+1. Необходимо ответить на все 10 вопросов.
+2. На каждый вопрос есть только один правильный ответ.
+3. Вам нужно правильно ответить, как минимум, на 7 вопросов, чтобы успешно сдать тест.
+4. У вас есть 45 минут, чтобы пройти этот тест.
+5. Использование других справочных материалов не допускаются.
+
+
+""")
+        for i, q in enumerate(ticket.questions):
             q: Question
-            f.write(f"{'\t'.join([q.right_answer, str(q.num_category)])}\n")
+            # f.write(f"{'\t'.join([q.id_question, q.right_answer, q.mix, str(q.num_category), q.category])}\n")
+            f.write(f"{i + 1}). {q.text_question}\n\n"
+                    f"\tA. {q.show_answer_a}\n"
+                    f"\tB. {q.show_answer_b}\n"
+                    f"\tC. {q.show_answer_c}\n"
+                    f"\tD. {q.show_answer_d}\n"
+                    f"\n\n")
+
+    # num = re.findall(r"\d+", ticket.ticket_name)
+    # with open(file=f'{DIR_OUT}/{ticket.exam_name}/{ticket.ticket_name}_to_excel.txt', mode='w', encoding='utf-8') as f:
+    #     f.write(f'{num[0]}\t\n')
+    #     for q in ticket.questions:
+    #         q: Question
+    #         f.write(f"{'\t'.join([q.right_answer, str(q.num_category)])}\n")
 
 
 def create_gift(ticket: Ticket):
