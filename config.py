@@ -1,7 +1,7 @@
 import itertools
 from pathlib import Path
 
-COUNT_QUESTIONS_IN_TICKET = 10
+COUNT_QUESTIONS_IN_TICKET = 30
 
 LOG_FILE = './log.txt'
 
@@ -31,6 +31,7 @@ FULL_NAME_COURSE = {
     'BASRMC': 'Бизнес-анализ. Управление требованиями к ПО',
     'OPSC': 'OPSC',
     'SCM_T': '',
+    'DGTC':'',
 
 }
 
@@ -47,6 +48,7 @@ FILE_XLSX = {
     'SCMC': PATH_QUESTIONS / 'SCMC.xlsx',
     'CPIC': PATH_QUESTIONS / 'CPIC.xlsx',
     'OPSC': PATH_QUESTIONS / 'OPSC.xlsx',
+    'DGTC': PATH_QUESTIONS / 'DGTС.xlsx',
 
     # 'SCM_T': PATH_QUESTIONS / 'SCM_T.xlsx',
     'SCM_T': PATH_QUESTIONS / 'Тестовые вопросы SCM v.1.0.4.xlsx',

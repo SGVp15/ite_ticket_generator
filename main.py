@@ -13,7 +13,8 @@ def main():
     # exams.append('SCMC')
     # exams.append('OPSC')
     # exams.append('ITIL4FC')
-    exams.append('SCM_T')
+    # exams.append('SCM_T')
+    exams.append('DGTC')
 
     for exam in exams:
         create_folders(exam)
@@ -22,14 +23,14 @@ def main():
         for ticket_name in range(1):
             ticket = Ticket(
                 questions=create_new_ticket(all_questions,
-                                            10,
-                                            # min(COUNT_QUESTIONS_IN_TICKET, len(all_questions)),
+                                            # 10,
+                                            min(COUNT_QUESTIONS_IN_TICKET, len(all_questions)),
                                             is_random_question=False),
                 exam_name=exam
             )
             create_txt(ticket=ticket)
-            # create_gift(ticket=ticket)
-            create_docx(ticket=ticket)
+            create_gift(ticket=ticket)
+            # create_docx(ticket=ticket)
             print(ticket_name)
         # print('\n[  convert_docx_to_pdf  ]')
         # docx_files = set([x[:-5] for x in os.listdir(f'./{DIR_OUT}/{exam}/docx') if x.endswith('.docx')])
@@ -43,5 +44,5 @@ def main():
 
 
 if __name__ == '__main__':
-    for i in range(10):
-        main()
+    # for i in range(10):
+    main()
