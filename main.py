@@ -23,7 +23,6 @@ def main():
         for ticket_name in range(1):
             ticket = Ticket(
                 questions=create_new_ticket(all_questions,
-                                            # 10,
                                             min(COUNT_QUESTIONS_IN_TICKET, len(all_questions)),
                                             is_random_question=False),
                 exam_name=exam
